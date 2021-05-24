@@ -30,14 +30,23 @@
 (def purchase4 (model/new-purchase 150M "Hering" "Store"))
 (def purchase5 (model/new-purchase 35M "Uber" "Service"))
 (def purchase6 (model/new-purchase 97.45M "Veloso Bar" "Food"))
+(def purchase7 (model/new-purchase 200M "Disney" "Service"))
 (pprint @(db/add-purchase! conn [purchase1 purchase2 purchase3
-                                 purchase4 purchase5 purchase6]))
+                                 purchase4 purchase5 purchase6 purchase7]))
 (db/set-card-into-purchase! conn [purchase3 purchase4 purchase6] card1)
-(db/set-card-into-purchase! conn [purchase1 purchase2 purchase5] card2)
+(db/set-card-into-purchase! conn [purchase1 purchase2 purchase5 purchase7] card2)
 
 
 
 
 (println "All purchases" (logic/all-purchases (d/db conn)))
+
+(pprint (logic/who-purchased-more (d/db conn)))
+
+(pprint (logic/most-expensive-purchase (d/db conn)))
+
+(pprint (logic/purchases-by-users (d/db conn)))
+
+(logic/users-who-never-purchases (d/db conn))
 
 ;(db/remove-database!)
